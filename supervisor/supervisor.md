@@ -79,17 +79,17 @@ supervisorctl update
 重新启动配置中的所有程序
 supervisorctl reload
 
-启动某个进程(program_name=你配置中写的程序名称)
-supervisorctl start program_name
+启动某个进程
+supervisorctl start [program_name]
 
-查看正在守候的进程
+进入命令行模式
 supervisorctl
 
-停止某一进程 (program_name=你配置中写的程序名称)
-pervisorctl stop program_name
+停止某一进程
+pervisorctl stop [program_name]
 
-重启某一进程 (program_name=你配置中写的程序名称)
-supervisorctl restart program_name
+重启某一进程
+supervisorctl restart [program_name]
 
 停止全部进程
 supervisorctl stop all
