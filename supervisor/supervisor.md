@@ -67,6 +67,8 @@ storm-ui                         RUNNING   pid 10813, uptime 0:02:50
 
 [root@bigdata-pro03 ~]# supervisorctl start storm-supervisor
 [root@bigdata-pro03 ~]# supervisorctl start storm-logviewer
+
+supervisorctl stop all
 ```
 ### 常用命令
 ```
