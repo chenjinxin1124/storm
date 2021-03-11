@@ -1,6 +1,6 @@
 # 安装使用
 https://www.jianshu.com/p/ff915e062f86
-## 安装
+## 安装supervisor
 ```
 # yum -y install python-setuptools
 # easy_install supervisor
@@ -14,7 +14,7 @@ https://www.jianshu.com/p/ff915e062f86
 生成配置文件(supervisord.conf)
 # echo_supervisord_conf > /etc/supervisor/supervisord.conf
 ```
-### 修改配置文件
+### 修改配置文件(监控脚本所在文件)
 分号后边的表示注释
 ```
 # vim /etc/supervisor/supervisord.conf
@@ -37,9 +37,7 @@ scp supervisor/storm.conf root@bigdata-pro03:/etc/supervisor/confs/
 
 更新新的配置到supervisord    
 supervisorctl update
-服务状态
-supervisorctl status
-
+查看服务状态
 [root@bigdata-pro01 ~]# supervisorctl status
 storm-logviewer                  STOPPED   Not started
 storm-nimbus                     STOPPED   Not started
@@ -71,28 +69,19 @@ storm-ui                         RUNNING   pid 10813, uptime 0:02:50
 supervisorctl stop all
 ```
 ### 常用命令
-```
-服务状态
-supervisorctl status
-
-更新新的配置到supervisord    
-supervisorctl update
-
-重新启动配置中的所有程序
-supervisorctl reload
-
-启动某个进程
-supervisorctl start [program_name]
-
-进入命令行模式
+#### 进入命令行模式
 supervisorctl
-
-停止某一进程
+#### 服务状态
+supervisorctl status
+#### 更新新的配置到supervisord    
+supervisorctl update
+#### 重新启动配置中的所有程序
+supervisorctl reload
+#### 启动某个进程
+supervisorctl start [program_name]
+#### 停止某一进程
 pervisorctl stop [program_name]
-
-重启某一进程
+#### 重启某一进程
 supervisorctl restart [program_name]
-
-停止全部进程
+#### 停止全部进程
 supervisorctl stop all
-```
