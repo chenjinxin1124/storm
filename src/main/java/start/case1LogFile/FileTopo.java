@@ -19,7 +19,7 @@ public class FileTopo {
         config.setDebug(true);
 
         if (args != null && args.length > 0) {
-            config.setNumWorkers(3);
+            config.setNumWorkers(3);// worker数必须大于等于组件数
             try {
                 StormSubmitter.submitTopology(args[0], config, builder.createTopology());
             } catch (AlreadyAliveException | InvalidTopologyException | AuthorizationException e) {

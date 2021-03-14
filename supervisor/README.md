@@ -20,8 +20,9 @@ https://www.jianshu.com/p/ff915e062f86
 # vim /etc/supervisor/supervisord.conf
 [include]
 files = /etc/supervisor/confs/*.conf
-
-启动服务
+```
+### 启动服务
+```
 # supervisord -c /etc/supervisor/supervisord.conf
 # ps -ef | grep supervisord
 ```
