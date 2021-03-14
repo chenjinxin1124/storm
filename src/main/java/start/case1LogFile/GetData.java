@@ -1,4 +1,4 @@
-package start;
+package start.case1LogFile;
 
 import java.io.File;
 import java.io.FileOutputStream;
