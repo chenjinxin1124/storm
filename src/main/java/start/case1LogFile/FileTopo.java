@@ -12,7 +12,7 @@ public class FileTopo {
     public static void main(String[] args) {
         TopologyBuilder builder = new TopologyBuilder();
         builder.setSpout("spout", new ReadFileSpout(), 1);// parallelism_hint: 并发度
-        builder.setBolt("fileBolt", new FileBolt(), 1).shuffleGrouping("spout");
+        builder.setBolt("fileBolt", new FileBolt(), 1).setNumTasks(3).shuffleGrouping("spout");
         builder.setBolt("printBolt", new PrintBolt(), 1).shuffleGrouping("fileBolt");
 
         Config config = new Config();
