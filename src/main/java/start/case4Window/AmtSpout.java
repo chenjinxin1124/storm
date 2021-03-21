@@ -1,4 +1,4 @@
-package start.case4window;
+package start.case4Window;
 
 import org.apache.storm.spout.SpoutOutputCollector;
 import org.apache.storm.task.TopologyContext;

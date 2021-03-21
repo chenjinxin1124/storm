@@ -1,19 +1,20 @@
-package start.case4window.tumbling;
+package start.case4Window.tumbling;
 
 import org.apache.storm.Config;
 import org.apache.storm.LocalCluster;
 import org.apache.storm.StormSubmitter;
 import org.apache.storm.topology.TopologyBuilder;
 import org.apache.storm.topology.base.BaseWindowedBolt;
-import start.case4window.AmtSpout;
+import start.case4Window.AmtSpout;
 
-public class Demo {
+public class Demo2 {
     public static void main(String[] args) {
         TopologyBuilder builder = new TopologyBuilder();
         builder.setSpout("spout", new AmtSpout());
         builder.setBolt("tumblingBolt",
-                new TumblingBolt().withTumblingWindow(
-                        new BaseWindowedBolt.Count(3)))
+                new TumblingBolt()
+                        .withTumblingWindow(
+                                BaseWindowedBolt.Duration.seconds(5)))
                 .shuffleGrouping("spout");
 
         Config config = new Config();
@@ -27,7 +28,7 @@ public class Demo {
                 LocalCluster cluster = new LocalCluster();
                 cluster.submitTopology("tumblingWindow", config, builder.createTopology());
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

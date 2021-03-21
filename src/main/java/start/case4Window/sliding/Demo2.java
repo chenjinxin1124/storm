@@ -1,11 +1,11 @@
-package start.case4window.sliding;
+package start.case4Window.sliding;
 
 import org.apache.storm.Config;
 import org.apache.storm.LocalCluster;
 import org.apache.storm.StormSubmitter;
 import org.apache.storm.topology.TopologyBuilder;
 import org.apache.storm.topology.base.BaseWindowedBolt;
-import start.case4window.AmtSpout;
+import start.case4Window.AmtSpout;
 
 public class Demo2 {
     public static void main(String[] args) {
