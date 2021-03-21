@@ -1,11 +1,11 @@
-package start.window.tumbling;
+package start.case4window.tumbling;
 
 import org.apache.storm.Config;
 import org.apache.storm.LocalCluster;
 import org.apache.storm.StormSubmitter;
 import org.apache.storm.topology.TopologyBuilder;
 import org.apache.storm.topology.base.BaseWindowedBolt;
-import start.window.AmtSpout;
+import start.case4window.AmtSpout;
 
 public class Demo {
     public static void main(String[] args) {
