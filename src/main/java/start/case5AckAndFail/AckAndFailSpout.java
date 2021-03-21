@@ -13,7 +13,7 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * 1. 读取 src/main/java/start/case5AckAndFail/order.log 文件
+ * 1. 读取 src/main/java/start/case5AckAndFail/order.txt 文件
  * 2. 按行读取文件内容，缓存，发送
  */
 public class AckAndFailSpout implements IRichSpout {
@@ -32,7 +32,7 @@ public class AckAndFailSpout implements IRichSpout {
     public void open(Map conf, TopologyContext context, SpoutOutputCollector collector) {
         this.collector = collector;
         try {
-            this.fis = new FileInputStream("src/main/java/start/case5AckAndFail/order.log");
+            this.fis = new FileInputStream("src/main/java/start/case5AckAndFail/order.txt");
             this.isr = new InputStreamReader(fis, "UTF-8");
         } catch (FileNotFoundException | UnsupportedEncodingException e) {
             e.printStackTrace();
