@@ -1,4 +1,4 @@
-package start.case6TridentTest.operTest;
+package start.case6TridentTest.operations;
 
 import org.apache.storm.Config;
 import org.apache.storm.LocalCluster;

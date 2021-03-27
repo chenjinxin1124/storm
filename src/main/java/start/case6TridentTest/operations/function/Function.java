@@ -1,4 +1,4 @@
-package start.case6TridentTest.operTest.function;
+package start.case6TridentTest.operations.function;
 
 import org.apache.storm.trident.operation.BaseFunction;
 import org.apache.storm.trident.operation.TridentCollector;

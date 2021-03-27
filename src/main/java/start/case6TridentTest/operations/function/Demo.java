@@ -1,4 +1,4 @@
-package start.case6TridentTest.operTest.function;
+package start.case6TridentTest.operations.function;
 
 import org.apache.storm.Config;
 import org.apache.storm.LocalCluster;
@@ -6,8 +6,8 @@ import org.apache.storm.generated.StormTopology;
 import org.apache.storm.trident.TridentTopology;
 import org.apache.storm.trident.testing.FixedBatchSpout;
 import org.apache.storm.tuple.Fields;
-import start.case6TridentTest.operTest.Datas;
-import start.case6TridentTest.operTest.filter.Filter;
+import start.case6TridentTest.operations.Datas;
+import start.case6TridentTest.operations.filter.Filter;
 
 public class Demo {
 

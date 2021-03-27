@@ -1,4 +1,4 @@
-package start.case6TridentTest.operTest.filter;
+package start.case6TridentTest.operations.filter;
 
 import org.apache.storm.trident.operation.BaseFilter;
 import org.apache.storm.trident.tuple.TridentTuple;
