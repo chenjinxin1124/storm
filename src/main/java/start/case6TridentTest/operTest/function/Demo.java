@@ -18,8 +18,8 @@ public class Demo {
 
         TridentTopology topology = new TridentTopology();
         topology.newStream("spout", spout)
-                .each(new Fields("date", "amt", "city", "product"), new Function.MyFunction(), new Fields("_date"))
-                .each(new Fields("_date", "amt", "city", "product"), new Filter.PrintFilter());
+                .each(new Fields("date", "amt", "city", "product"), new Function.MyFunction(), new Fields("_date"))// 此时的Tuple有"date", "amt", "city", "product", "_date"5列数据
+                .each(new Fields("_date", "amt", "city", "product"), new Filter.PrintFilter());// 这里只取了Tuple的"_date", "amt", "city", "product"
         return topology.build();
     }
 
