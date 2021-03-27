@@ -3,6 +3,10 @@ package start.case6TridentTest;
 import org.apache.storm.Config;
 import org.apache.storm.LocalCluster;
 import org.apache.storm.LocalDRPC;
+import org.apache.storm.StormSubmitter;
+import org.apache.storm.generated.AlreadyAliveException;
+import org.apache.storm.generated.AuthorizationException;
+import org.apache.storm.generated.InvalidTopologyException;
 import org.apache.storm.generated.StormTopology;
 import org.apache.storm.trident.TridentState;
 import org.apache.storm.trident.TridentTopology;
@@ -118,7 +122,7 @@ public class TridentOperTest {
         return topology.build();
     }
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException, InvalidTopologyException, AuthorizationException, AlreadyAliveException {
         Config config = new Config();
         config.setMaxSpoutPending(20);
         config.setDebug(false);
@@ -130,6 +134,9 @@ public class TridentOperTest {
                 System.out.println("DRPC RESULT: " + drpc.execute("words", "2020-01-11 2020-01-12 2020-01-13 2020-01-14"));
                 Thread.sleep(1000);
             }
+        } else {
+            config.setNumWorkers(3);
+            StormSubmitter.submitTopologyWithProgressBar(args[0], config, buildTopology(null));
         }
     }
 }
