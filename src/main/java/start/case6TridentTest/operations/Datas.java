@@ -36,7 +36,11 @@ public class Datas {
         return bigData[random.nextInt(bigData.length)];
     }
 
-    private final FixedBatchSpout spout = new FixedBatchSpout(fields, 3,
+    private final FixedBatchSpout spout = new FixedBatchSpout(fields, 4,
+            new Values(getRandomDate(), getRandomAmt(), getRandomCity(), getRandomProduct()),
+            new Values(getRandomDate(), getRandomAmt(), getRandomCity(), getRandomProduct()),
+            new Values(getRandomDate(), getRandomAmt(), getRandomCity(), getRandomProduct()),
+            new Values(getRandomDate(), getRandomAmt(), getRandomCity(), getRandomProduct()),
             new Values(getRandomDate(), getRandomAmt(), getRandomCity(), getRandomProduct()),
             new Values(getRandomDate(), getRandomAmt(), getRandomCity(), getRandomProduct()),
             new Values(getRandomDate(), getRandomAmt(), getRandomCity(), getRandomProduct()),
