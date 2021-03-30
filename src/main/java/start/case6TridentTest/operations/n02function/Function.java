@@ -43,4 +43,25 @@ public class Function {
             System.out.println("parNum = " + parNum + ", parIndex = " + parIndex + sb.toString() + " [ " + amt + ", " + date + " ]");
         }
     }
+
+    public static class OperFunction extends BaseFunction{
+        int numPar;
+        @Override
+        public void prepare(Map conf, TridentOperationContext context) {
+            numPar = context.numPartitions();
+            super.prepare(conf, context);
+        }
+
+        @Override
+        public void execute(TridentTuple tuple, TridentCollector collector) {
+
+            String _date = tuple.getStringByField("date");
+            int amt = tuple.getIntegerByField("amt");
+
+            _date = _date.substring(0,10);
+            System.out.println("原数据: ["+_date+" : "+amt+"]");
+            collector.emit(new Values(_date));
+
+        }
+    }
 }
