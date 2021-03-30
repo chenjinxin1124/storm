@@ -44,8 +44,9 @@ public class Function {
         }
     }
 
-    public static class OperFunction extends BaseFunction{
+    public static class OperFunction extends BaseFunction {
         int numPar;
+
         @Override
         public void prepare(Map conf, TridentOperationContext context) {
             numPar = context.numPartitions();
@@ -58,8 +59,8 @@ public class Function {
             String _date = tuple.getStringByField("date");
             int amt = tuple.getIntegerByField("amt");
 
-            _date = _date.substring(0,10);
-            System.out.println("原数据: ["+_date+" : "+amt+"]");
+            _date = _date.substring(0, 10);
+            System.out.println("原数据: [" + "numPar => " + numPar + " --> " + _date + " : " + amt + "]");
             collector.emit(new Values(_date));
 
         }

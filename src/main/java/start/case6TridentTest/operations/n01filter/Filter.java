@@ -1,7 +1,10 @@
 package start.case6TridentTest.operations.n01filter;
 
 import org.apache.storm.trident.operation.BaseFilter;
+import org.apache.storm.trident.operation.TridentOperationContext;
 import org.apache.storm.trident.tuple.TridentTuple;
+
+import java.util.Map;
 
 public class Filter {
     public static class BiggerFilter extends BaseFilter {
@@ -52,9 +55,17 @@ public class Filter {
     }
 
     public static class PrintFilter extends BaseFilter {
+        int numPar;
+
+        @Override
+        public void prepare(Map conf, TridentOperationContext context) {
+            numPar = context.numPartitions();
+            super.prepare(conf, context);
+        }
+
         @Override
         public boolean isKeep(TridentTuple tuple) {
-            System.out.println("result >>> " + tuple);
+            System.out.println("numPar => " + numPar + "\tresult >>> " + tuple);
             return false;
 
         }
