@@ -41,6 +41,23 @@ public class Aggregate {
         }
     }
 
+    public static class CombinerAggreCount implements CombinerAggregator {
+        @Override
+        public Object init(TridentTuple tuple) {
+            return 1L;
+        }
+
+        @Override
+        public Object combine(Object val1, Object val2) {
+            return (long) val1 + (long) val2;
+        }
+
+        @Override
+        public Object zero() {
+            return 0L;
+        }
+    }
+
     public static class BaseAgger extends BaseAggregator<BaseAgger.CountState> {
         int parNum;
         int parIndex;

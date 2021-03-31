@@ -65,7 +65,7 @@ public class Filter {
 
         @Override
         public boolean isKeep(TridentTuple tuple) {
-            System.out.println("numPar => " + numPar + "\tresult >>> " + tuple);
+            System.out.println("result >>> " + tuple + "\tnumPar => " + numPar);
             return false;
 
         }

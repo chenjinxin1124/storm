@@ -36,8 +36,12 @@ public class Datas {
         return bigData[random.nextInt(bigData.length)];
     }
 
+    // 共 14 条数据，一批数据最大为 8 条
     private final FixedBatchSpout spout = new FixedBatchSpout(fields,
             8,// 一批数据的最大数量
+            new Values(getRandomDate(), getRandomAmt(), getRandomCity(), getRandomProduct()),
+            new Values(getRandomDate(), getRandomAmt(), getRandomCity(), getRandomProduct()),
+            new Values(getRandomDate(), getRandomAmt(), getRandomCity(), getRandomProduct()),
             new Values(getRandomDate(), getRandomAmt(), getRandomCity(), getRandomProduct()),
             new Values(getRandomDate(), getRandomAmt(), getRandomCity(), getRandomProduct()),
             new Values(getRandomDate(), getRandomAmt(), getRandomCity(), getRandomProduct()),
