@@ -38,7 +38,6 @@
     <orderEntry type="library" name="Maven: org.apache.logging.log4j:log4j-api:2.8.2" level="project" />
     <orderEntry type="library" name="Maven: org.apache.logging.log4j:log4j-core:2.8.2" level="project" />
     <orderEntry type="library" name="Maven: org.apache.logging.log4j:log4j-slf4j-impl:2.8.2" level="project" />
-    <orderEntry type="library" name="Maven: org.slf4j:log4j-over-slf4j:1.6.6" level="project" />
     <orderEntry type="library" name="Maven: io.dropwizard.metrics:metrics-core:3.1.0" level="project" />
     <orderEntry type="library" name="Maven: io.dropwizard.metrics:metrics-graphite:3.1.0" level="project" />
     <orderEntry type="library" name="Maven: io.dropwizard.metrics:metrics-ganglia:3.1.0" level="project" />
@@ -218,8 +217,10 @@
     <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.3" level="project" />
     <orderEntry type="library" name="Maven: com.zaxxer:HikariCP:2.4.3" level="project" />
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:5.1.31" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.kafka:kafka_2.10:0.8.2.1" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.kafka:kafka_2.11:0.8.2.1" level="project" />
+    <orderEntry type="library" name="Maven: org.scala-lang.modules:scala-xml_2.11:1.0.2" level="project" />
     <orderEntry type="library" name="Maven: com.yammer.metrics:metrics-core:2.2.0" level="project" />
+    <orderEntry type="library" name="Maven: org.scala-lang.modules:scala-parser-combinators_2.11:1.0.2" level="project" />
     <orderEntry type="library" name="Maven: com.google.guava:guava:22.0" level="project" />
     <orderEntry type="library" name="Maven: com.google.errorprone:error_prone_annotations:2.0.18" level="project" />
     <orderEntry type="library" name="Maven: com.google.j2objc:j2objc-annotations:1.1" level="project" />
