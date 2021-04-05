@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<configuration>
+    <property>
+        <name>hbase.rootdir</name>
+        <value>hdfs://bigdata-pro01:9000/hbase</value>
+        <description>hdfs-namenode/根节点目录</description>
+    </property>
+
+    <property>
+        <name>hbase.cluster.distributed</name>
+        <value>true</value>
+        <description>开启分布式</description>
+    </property>
+
+    <property>
+        <name>hbase.zookeeper.quorum</name>
+        <value>bigdata-pro01,bigdata-pro02,bigdata-pro03</value>
+        <description>zookeeper所在节点</description>
+    </property>
+</configuration>
