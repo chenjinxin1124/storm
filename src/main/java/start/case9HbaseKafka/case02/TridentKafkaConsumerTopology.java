@@ -42,11 +42,9 @@ import java.util.Map;
 public class TridentKafkaConsumerTopology {
     protected static final Logger LOG = LoggerFactory.getLogger(TridentKafkaConsumerTopology.class);
 
-
     public static StormTopology newTopology(ITridentDataSource tridentSpout) {
         return newTopology(null, tridentSpout);
     }
-
 
     public static StormTopology newTopology(LocalDRPC drpc, ITridentDataSource tridentSpout) {
 
@@ -104,9 +102,6 @@ public class TridentKafkaConsumerTopology {
                         .each(new Fields("str"), new MyFunction(), new Fields("date", "amt"))
                         .groupBy(new Fields("date"))
                         .persistentAggregate(HBaseMapState.transactional(options), new Fields("date", "amt"), new MySum(), new Fields("_amt"));
-
-        tridentTopology.newDRPCStream("test").stateQuery(tridentState, new HBaseQuery(), new Fields("ss"));
-
 
         tridentState.newValuesStream()
                 .each(new Fields("date", "_amt"), new BaseFilter() {

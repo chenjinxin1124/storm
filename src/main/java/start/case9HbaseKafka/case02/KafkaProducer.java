@@ -43,6 +43,7 @@ public class KafkaProducer extends Thread {
 
     public void run() {
         Random random = new Random();
+
         for (int i = 0; i < 1500000000; i++) {
             {
                 StringBuilder str = new StringBuilder();

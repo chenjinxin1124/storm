@@ -29,26 +29,13 @@ import java.io.Serializable;
 
 public class TridentKafkaWordCount implements Serializable {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         final String[] zkBrokerUrl = parseUrl(args);
-        final String topicName = "test2";
         Config tpConf = LocalSubmitter.defaultConfig();
-            final LocalSubmitter localSubmitter = LocalSubmitter.newInstance();
-            final String prodTpName = "kafkaBolt";
-            final String consTpName = "wordCounter";
-            try {
-                // Producer
-                //localSubmitter.submit(prodTpName, tpConf, KafkaProducerTopology.newTridentTopology(zkBrokerUrl[1], topicName));
-                // Consumer
-                localSubmitter.submit(consTpName, tpConf, TridentKafkaConsumerTopology.newTopology(localSubmitter.getDrpc(),
-                        new TransactionalTridentKafkaSpout(newTridentKafkaConfig(zkBrokerUrl[0]))));
-            } finally {
-                // kill
-//                localSubmitter.kill(prodTpName);
-//                localSubmitter.kill(consTpName);
-//                // shutdown
-//                localSubmitter.shutdown();
-            }
+        final LocalSubmitter localSubmitter = LocalSubmitter.newInstance();
+        final String consTpName = "wordCounter";
+        localSubmitter.submit(consTpName, tpConf, TridentKafkaConsumerTopology.newTopology(localSubmitter.getDrpc(),
+                new TransactionalTridentKafkaSpout(newTridentKafkaConfig(zkBrokerUrl[0]))));
 
     }
 
@@ -65,7 +52,6 @@ public class TridentKafkaWordCount implements Serializable {
         TridentKafkaConfig config = new TridentKafkaConfig(hosts, "test2");
         config.scheme = new SchemeAsMultiScheme(new StringScheme());
 
-        // Consume new data from the topic
         config.startOffsetTime = kafka.api.OffsetRequest.LatestTime();
         return config;
     }
