@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package start.case10Mysql.jdbc.topology;
+package start.case10MysqlKafka.jdbc.topology;
 
 import org.apache.storm.Config;
 import org.apache.storm.StormSubmitter;
@@ -32,7 +32,7 @@ import org.apache.storm.jdbc.mapper.JdbcLookupMapper;
 import org.apache.storm.jdbc.mapper.SimpleJdbcMapper;
 import org.apache.storm.jdbc.mapper.SimpleJdbcLookupMapper;
 import org.apache.storm.LocalCluster;
-import start.case10Mysql.jdbc.spout.UserSpout;
+import start.case10MysqlKafka.jdbc.spout.UserSpout;
 
 import java.sql.Types;
 import java.util.List;

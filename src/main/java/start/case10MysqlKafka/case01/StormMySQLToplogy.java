@@ -1,4 +1,4 @@
-package start.case10Mysql.case01;
+package start.case10MysqlKafka.case01;
 
 import com.google.common.collect.Lists;
 import org.apache.storm.Config;
@@ -14,7 +14,6 @@ import org.apache.storm.jdbc.trident.state.JdbcStateFactory;
 import org.apache.storm.jdbc.trident.state.JdbcUpdater;
 import org.apache.storm.kafka.trident.TransactionalTridentKafkaSpout;
 import org.apache.storm.shade.com.google.common.collect.Maps;
-import org.apache.storm.trident.TridentState;
 import org.apache.storm.trident.TridentTopology;
 import org.apache.storm.tuple.Fields;
 import start.case9HbaseKafka.case02.TridentKafkaConsumerTopology;

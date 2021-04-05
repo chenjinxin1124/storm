@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package start.case10Mysql.jdbc.topology;
+package start.case10MysqlKafka.jdbc.topology;
 
 import org.apache.storm.generated.StormTopology;
 import org.apache.storm.tuple.Fields;
@@ -29,7 +29,7 @@ import org.apache.storm.jdbc.trident.state.JdbcUpdater;
 import org.apache.storm.trident.Stream;
 import org.apache.storm.trident.TridentState;
 import org.apache.storm.trident.TridentTopology;
-import start.case10Mysql.jdbc.spout.UserSpout;
+import start.case10MysqlKafka.jdbc.spout.UserSpout;
 
 import java.sql.Types;
 
