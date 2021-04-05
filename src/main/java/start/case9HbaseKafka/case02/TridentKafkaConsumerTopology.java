@@ -16,24 +16,28 @@
  *   limitations under the License.
  */
 
-package start.case9HbaseKafka.case01;
+package start.case9HbaseKafka.case02;
 
 import org.apache.storm.LocalDRPC;
 import org.apache.storm.generated.StormTopology;
 import org.apache.storm.hbase.trident.mapper.SimpleTridentHBaseMapMapper;
 import org.apache.storm.hbase.trident.state.HBaseMapState;
+import org.apache.storm.hbase.trident.state.HBaseQuery;
 import org.apache.storm.trident.Stream;
 import org.apache.storm.trident.TridentState;
 import org.apache.storm.trident.TridentTopology;
-import org.apache.storm.trident.operation.BaseFilter;
+import org.apache.storm.trident.operation.*;
 import org.apache.storm.trident.operation.builtin.Count;
 import org.apache.storm.trident.operation.builtin.Debug;
 import org.apache.storm.trident.spout.ITridentDataSource;
 import org.apache.storm.trident.testing.Split;
 import org.apache.storm.trident.tuple.TridentTuple;
 import org.apache.storm.tuple.Fields;
+import org.apache.storm.tuple.Values;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Map;
 
 public class TridentKafkaConsumerTopology {
     protected static final Logger LOG = LoggerFactory.getLogger(TridentKafkaConsumerTopology.class);
@@ -51,8 +55,44 @@ public class TridentKafkaConsumerTopology {
         return tridentTopology.build();
     }
 
-    private static void addTridentState(TridentTopology tridentTopology, ITridentDataSource tridentSpout) {
+    public static class MyFunction extends BaseFunction {
+        @Override
+        public void prepare(Map conf, TridentOperationContext context) {
+            super.prepare(conf, context);
+        }
+
+        @Override
+        public void execute(TridentTuple tuple, TridentCollector collector) {
+
+            String[] res = tuple.getStringByField("str").split(",");
+            String date = res[0].substring(0, 10);
+            String amt = res[1];
+            System.out.println(" >>>>  " + date + " : " + amt);
+            collector.emit(new Values(date, amt));
+        }
+    }
+
+    private static class MySum implements CombinerAggregator {
+        @Override
+        public Object init(TridentTuple tuple) {
+            long _amt = Long.parseLong(tuple.getStringByField("amt"));
+            return _amt;
+        }
+
+        @Override
+        public Object combine(Object val1, Object val2) {
+            return (long) val1 + (long) val2;
+        }
+
+        @Override
+        public Object zero() {
+            return 0L;
+        }
+    }
+
+    private static TridentState addTridentState(TridentTopology tridentTopology, ITridentDataSource tridentSpout) {
         final Stream spoutStream = tridentTopology.newStream("spout1", tridentSpout).parallelismHint(2);
+
 
         HBaseMapState.Options options = new HBaseMapState.Options();
         options.tableName = "storm";
@@ -61,18 +101,22 @@ public class TridentKafkaConsumerTopology {
 
         TridentState tridentState =
                 spoutStream.each(spoutStream.getOutputFields(), new Debug(true))
-                        .each(new Fields("str"), new Split(), new Fields("word"))
-                        .groupBy(new Fields("word"))
-                        .persistentAggregate(HBaseMapState.transactional(options), new Count(), new Fields("count"));
+                        .each(new Fields("str"), new MyFunction(), new Fields("date", "amt"))
+                        .groupBy(new Fields("date"))
+                        .persistentAggregate(HBaseMapState.transactional(options), new Fields("date", "amt"), new MySum(), new Fields("_amt"));
+
+        tridentTopology.newDRPCStream("test").stateQuery(tridentState, new HBaseQuery(), new Fields("ss"));
+
 
         tridentState.newValuesStream()
-                .each(new Fields("word", "count"), new BaseFilter() {
+                .each(new Fields("date", "_amt"), new BaseFilter() {
                     @Override
                     public boolean isKeep(TridentTuple tuple) {
                         System.out.println("result >>>>  " + tuple);
                         return false;
                     }
                 });
-    }
 
+        return tridentState;
+    }
 }

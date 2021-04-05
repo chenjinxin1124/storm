@@ -15,7 +15,7 @@
  *   See the License for the specific language governing permissions and
  *   limitations under the License.
  */
-package start.case9HbaseKafka.case01;
+package start.case9HbaseKafka.case02;
 
 
 import org.apache.storm.Config;
@@ -29,19 +29,32 @@ import java.io.Serializable;
 
 public class TridentKafkaWordCount implements Serializable {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         final String[] zkBrokerUrl = parseUrl(args);
+        final String topicName = "test2";
         Config tpConf = LocalSubmitter.defaultConfig();
-        final LocalSubmitter localSubmitter = LocalSubmitter.newInstance();
-        final String consTpName = "wordCounter";
-        localSubmitter.submit(consTpName, tpConf, TridentKafkaConsumerTopology.newTopology(localSubmitter.getDrpc(),
-                new TransactionalTridentKafkaSpout(newTridentKafkaConfig(zkBrokerUrl[0]))));
+            final LocalSubmitter localSubmitter = LocalSubmitter.newInstance();
+            final String prodTpName = "kafkaBolt";
+            final String consTpName = "wordCounter";
+            try {
+                // Producer
+                //localSubmitter.submit(prodTpName, tpConf, KafkaProducerTopology.newTridentTopology(zkBrokerUrl[1], topicName));
+                // Consumer
+                localSubmitter.submit(consTpName, tpConf, TridentKafkaConsumerTopology.newTopology(localSubmitter.getDrpc(),
+                        new TransactionalTridentKafkaSpout(newTridentKafkaConfig(zkBrokerUrl[0]))));
+            } finally {
+                // kill
+//                localSubmitter.kill(prodTpName);
+//                localSubmitter.kill(consTpName);
+//                // shutdown
+//                localSubmitter.shutdown();
+            }
 
     }
 
     private static String[] parseUrl(String[] args) {
         String zkUrl = "bigdata-pro01:2181,bigdata-pro02:2181,bigdata-pro03:2181";        // the defaults.
-        String brokerUrl = "bigdata-pro01:9092,bigdata-pro02:9092,bigdata-pro03:9092";
+        String brokerUrl = "bigdata-pro01:9092,";
 
         System.out.println("Using Kafka zookeeper uHrl: " + zkUrl + " broker url: " + brokerUrl);
         return new String[]{zkUrl, brokerUrl};
@@ -52,6 +65,7 @@ public class TridentKafkaWordCount implements Serializable {
         TridentKafkaConfig config = new TridentKafkaConfig(hosts, "test2");
         config.scheme = new SchemeAsMultiScheme(new StringScheme());
 
+        // Consume new data from the topic
         config.startOffsetTime = kafka.api.OffsetRequest.LatestTime();
         return config;
     }
