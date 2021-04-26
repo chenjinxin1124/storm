@@ -16,7 +16,8 @@
 
     <property>
         <name>hbase.zookeeper.quorum</name>
-        <value>bigdata-pro01,bigdata-pro02,bigdata-pro03</value>
+        <!--value>bigdata-pro01,bigdata-pro02,bigdata-pro03</value-->
+        <value>bigdata-pro01</value>
         <description>zookeeper所在节点</description>
     </property>
 </configuration>
